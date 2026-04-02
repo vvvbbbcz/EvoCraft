@@ -1,0 +1,22 @@
+{
+  "name": "EvoCraft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT License",
+  "packageManager": "pnpm@10.32.1",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.6.0",
+    "prisma": "^7.6.0"
+  }
+}
