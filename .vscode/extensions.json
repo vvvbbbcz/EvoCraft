@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "Vue.volar", // Vue
+    "streetsidesoftware.code-spell-checker", // Spellcheck
+    "EditorConfig.EditorConfig", // EditorConfig support
+    "codezombiech.gitignore" // Gitignore support
+  ]
+}
