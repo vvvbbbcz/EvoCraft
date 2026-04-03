@@ -1,21 +1,34 @@
 {
-  "name": "EvoCraft",
+  "name": "evocraft",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
-    "dev": "run-p ai:start vue:dev",
     "ai:start": "node index.ts",
-    "vue:dev": "vite",
+    "vue:dev": "vite --config src/web/client/vite.config.ts",
     "vue:build": "run-p type-check \"build-only {@}\" --",
-    "vue:preview": "vite preview",
-    "vue:build-only": "vite build",
+    "vue:preview": "vite preview --config src/web/client/vite.config.ts",
+    "vue:build-only": "vite build --config src/web/client/vite.config.ts",
     "vue:type-check": "vue-tsc --build"
   },
   "keywords": [],
   "author": "",
   "license": "MIT License",
   "packageManager": "pnpm@10.32.1",
+  "dependencies": {
+    "@fontsource/roboto": "^5.2.10",
+    "@mdi/font": "^7.4.47",
+    "@prisma/client": "^7.6.0",
+    "minecraft-protocol": "^1.66.0",
+    "mineflayer": "^4.37.0",
+    "prisma": "^7.6.0",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "vue": "^3.5.31",
+    "vue-router": "^5.0.4",
+    "vuetify": "^4.0.5"
+  },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25.5.0",
@@ -23,14 +36,11 @@
     "@vue/tsconfig": "^0.9.1",
     "npm-run-all2": "^8.0.4",
     "typescript": "^6.0.2",
+    "unplugin-fonts": "^1.4.0",
+    "unplugin-vue-router": "^0.19.2",
     "vite": "^8.0.3",
     "vite-plugin-vue-devtools": "^8.1.1",
+    "vite-plugin-vuetify": "^2.1.3",
     "vue-tsc": "^3.2.6"
-  },
-  "dependencies": {
-    "@prisma/client": "^7.6.0",
-    "prisma": "^7.6.0",
-    "vue": "^3.5.31",
-    "vue-router": "^5.0.4"
   }
 }
