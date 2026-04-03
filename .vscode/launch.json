@@ -6,15 +6,31 @@
   "configurations": [
     {
       "type": "node-terminal",
-      "name": "运行脚本: dev",
+      "name": "运行脚本: ai:start",
       "request": "launch",
-      "command": "pnpm run dev",
+      "command": "pnpm run ai:start",
       "cwd": "${workspaceFolder}",
-      // "serverReadyAction": {
-      //   "pattern": "Local: *http://localhost:([0-9]+)/",
-      //   "uriFormat": "http://localhost:%s",
-      //   "action": "openExternally"
-      // }
+    },
+    {
+      "type": "node-terminal",
+      "name": "运行脚本: vue:dev",
+      "request": "launch",
+      "command": "pnpm run vue:dev",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "pattern": "Local: *http://localhost:([0-9]+)/",
+        "uriFormat": "http://localhost:%s",
+        "action": "openExternally"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "All dev",
+      "configurations": [
+        "运行脚本: ai:start",
+        "运行脚本: vue:dev"
+      ]
     }
   ]
 }

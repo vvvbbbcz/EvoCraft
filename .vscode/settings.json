@@ -5,7 +5,11 @@
     "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*"
   },
+  "vue.hover.rich": true,
   "cSpell.words": [
-    "evocraft"
+    "evocraft",
+    "mineflayer",
+    "unfonts",
+    "vuetify"
   ]
 }
