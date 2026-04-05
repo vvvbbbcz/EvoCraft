@@ -10,10 +10,10 @@ interface MCServerInfo {
 
 /**
  * Scans the IP address for Minecraft LAN servers and collects their info.
- * @param {string} ip - The IP address to scan.
- * @param {number} port - The port to check.
- * @param {number} timeout - The connection timeout in ms.
- * @returns {Promise<Array>} - A Promise that resolves to an array of server info objects.
+ * @param ip The IP address to scan.
+ * @param port The port to check.
+ * @param timeout The connection timeout in ms.
+ * @returns A Promise that resolves to an array of server info objects.
  */
 export async function serverInfo(ip: string, port: number, timeout = 1000): Promise<MCServerInfo | null> {
     let response = await mc.ping({
@@ -46,10 +46,10 @@ export async function serverInfo(ip: string, port: number, timeout = 1000): Prom
 
 /**
  * Gets the MC server info from the host and port.
- * @param {string} host - The host to search for.
- * @param {number} port - The port to search for.
- * @param {string} version - The version to search for.
- * @returns {Promise<Object>} - A Promise that resolves to the server info object.
+ * @param host The host to search for.
+ * @param port The port to search for.
+ * @param version The version to search for.
+ * @returns A Promise that resolves to the server info object.
  */
 export async function getServer(host: string, port: number, version?: string) {
     const server = await serverInfo(host, port, 1000);
