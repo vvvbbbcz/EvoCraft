@@ -3,7 +3,7 @@ import mc from 'minecraft-protocol';
 interface MCServerInfo {
     host: string,
     port: number,
-    version: string | null,
+    version?: string,
     desc?: string,
     ping?: number,
 }
@@ -28,7 +28,7 @@ export async function serverInfo(ip: string, port: number, timeout = 1000): Prom
     // extract version number from modded servers like "Paper 1.21.4"
     const version = typeof response.version === 'string' ? response.version : response.version.name;
     const match = String(version).match(/\d+\.\d+(?:\.\d+)?/);
-    const numericVersion = match ? match[0] : null;
+    const numericVersion = match ? match[0] : undefined;
     if (numericVersion !== version) {
         console.log(`Modded server found (${version}), attempting to use ${numericVersion}...`);
     }
