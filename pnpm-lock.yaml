@@ -23,6 +23,21 @@ importers:
       mineflayer:
         specifier: ^4.37.0
         version: 4.37.0
+      mineflayer-armor-manager:
+        specifier: ^2.0.1
+        version: 2.0.1(mineflayer@4.37.0)
+      mineflayer-auto-eat:
+        specifier: ^5.0.3
+        version: 5.0.3
+      mineflayer-collectblock:
+        specifier: ^1.6.0
+        version: 1.6.0
+      mineflayer-pathfinder:
+        specifier: ^2.4.5
+        version: 2.4.5
+      mineflayer-pvp:
+        specifier: ^1.3.2
+        version: 1.3.2(prismarine-registry@1.12.0)
       prisma:
         specifier: ^7.6.0
         version: 7.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
@@ -307,6 +322,9 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
+  '@nxg-org/mineflayer-util-plugin@1.8.4':
+    resolution: {integrity: sha512-hPaCZxU0Aq+gUSi/l6x7n32hUG6bnDugAMoQXD2dFE/gyNkmRSpmgH5+Y6G41w3H8P3Nl++upGCOlaxvZ7RuoA==}
+
   '@oxc-project/types@0.122.0':
     resolution: {integrity: sha512-oLAl5kBpV4w69UtFZ9xqcmTi+GENWOcPF7FCrczTiBbmC0ibXxCwyvZGbO39rCVEuLGAZM84DH0pUIyyv/YJzA==}
 
@@ -562,6 +580,9 @@ packages:
 
   '@types/node-rsa@1.1.4':
     resolution: {integrity: sha512-dB0ECel6JpMnq5ULvpUTunx3yNm8e/dIkv8Zu9p2c8me70xIRUUG3q+qXRwcSf9rN3oqamv4116iHy90dJGRpA==}
+
+  '@types/node@14.18.63':
+    resolution: {integrity: sha512-fAtCfv4jJg+ExtXhvCkCqUKZ+4ok/JQk01qDKhL5BDDoS3AxKXhV5/MAVUZyQnSEd2GT92fkgZl0pz0Q0AzcIQ==}
 
   '@types/node@25.5.0':
     resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
@@ -1256,6 +1277,9 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
+  minecraft-data@2.221.0:
+    resolution: {integrity: sha512-0AhqzbIKb6WqPSF6qBevaPryeWOz545hLxt6q+gfJF8YIQX/YfkyX/nXWhl+pSIS2rTBcQ0RJkRCtTeRzQwHDA==}
+
   minecraft-data@3.109.0:
     resolution: {integrity: sha512-WdeFQAogj0pX30dXMm2mYBd7x1DlKs7LCs8qtFGZ+S+IhnCh0DgHNSGd8dgL7wFxS6I9eJaF8zdGksdUi2PwYg==}
 
@@ -1265,6 +1289,34 @@ packages:
   minecraft-protocol@1.66.0:
     resolution: {integrity: sha512-CJAGxQCOD7zEr64VyN9OEjGDvGHcbXRCIbvbmgRJJWGYJD7EHATIElZdCGEk+h8Klxx9iRcsQIFlcS8DJIrPNw==}
     engines: {node: '>=22'}
+
+  mineflayer-armor-manager@2.0.1:
+    resolution: {integrity: sha512-csxRcFOrif1pu9TyUVR8xfmzRxwsxLSfcFVQDnCfhhV5U0Cuy5b9GjFWM4036a75XaQ94qkZklXgBDAsgJMGaQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      mineflayer: ^4.10.0
+
+  mineflayer-auto-eat@5.0.3:
+    resolution: {integrity: sha512-N5tUv2rPPYsTUdIOlMb6k3GXVJjFRQ3uSW3B+jO82STnftU97tpAolSzVUvOUwoNtOBmFKwsrZlb0ov1DKrvQA==}
+
+  mineflayer-collectblock@1.6.0:
+    resolution: {integrity: sha512-8UUmLTSIanolxEsLPSex2VG3l/QJQq9QK/JUhn00jtKqTMHyfASI6DzRj2omJ6XC0lbOli9w9+0plmuxG9sSOw==}
+
+  mineflayer-pathfinder@2.4.5:
+    resolution: {integrity: sha512-Jh3JnUgRLwhMh2Dugo4SPza68C41y+NPP5sdsgxRu35ydndo70i1JJGxauVWbXrpNwIxYNztUw78aFyb7icw8g==}
+
+  mineflayer-pvp@1.3.2:
+    resolution: {integrity: sha512-CI2T5w4ceiQdQRCFdrCs3OYmvO9G0cOx2qovUt6f27gknpVI90Ihe1qYhf+zBZJCg9uP1oJ1Pemlzw46Mm3wcA==}
+
+  mineflayer-tool@1.2.0:
+    resolution: {integrity: sha512-TRd7JOX4obJnzqzVi+4MLKmbeeCDjp9taerLKM8+AGpWfgtdbAguGmsr3BHu+TdXxOIT05veYecCv77S3KX6PA==}
+
+  mineflayer-utils@0.1.4:
+    resolution: {integrity: sha512-8+0dbGAjA6FO62/W80v5k44AuSAcwJUMdpMAAGhjI9AdCDz+UuyTnNkPBncF4EcLY7yUUdtA7m/OXQZKFdWOlg==}
+
+  mineflayer@2.41.0:
+    resolution: {integrity: sha512-IFFy4NgF24FU2PkAwazJphl2F+3gpbpN578ex0sq1XfcBBRge3kCz1UC2KDMjKI+V/8vffOL+OEnug9jt3f7Vw==}
+    engines: {node: '>=14'}
 
   mineflayer@4.37.0:
     resolution: {integrity: sha512-uBUQj3rHhm1LhsljQSIeS5jYJ9niWyk9QQSGSOqIvWIVWJraaSu7NCfWhPbWyzOi6EwSScWZ9JQGrZPGFKH6EA==}
@@ -1430,6 +1482,9 @@ packages:
     resolution: {integrity: sha512-TtT84Bys7+aGA94HwcK0QDp+jkWcLOLErKYtaWWl+EJya28NqPoBASr5L/lPZ8ZWLQUugg/aFIefZI/rEhEQWw==}
     engines: {node: '>=14'}
 
+  prismarine-entity@1.2.0:
+    resolution: {integrity: sha512-4dQ9LYl6HDJQrwZHjSKU4D5VNyHRnfrjcw7eVLlbRPkuR50utW5mmfPi4ys9U7tHNmGWHC/cwjH9xzT75LUovQ==}
+
   prismarine-entity@2.6.0:
     resolution: {integrity: sha512-/LlZRLOpACiXk+GqoaKi0XPBFnNMjb1d4OIzuSCSEgNMK6FUo3Wnin5yeSZ7ff3Ztt7yagN9lX2jSOafn6IIzg==}
 
@@ -1452,6 +1507,9 @@ packages:
 
   prismarine-registry@1.12.0:
     resolution: {integrity: sha512-OC5U6YrflY6OcAWRZEqe2HGZuNp0bIuP7H+oKEHD6rLfKNDxo8Ymx5eh2VvrZWnMVugpwID1Qj/UjA4MoCzNDw==}
+
+  prismarine-windows@1.6.0:
+    resolution: {integrity: sha512-026LG1yR76Xb62kM+W83IWT7Wy2yKplllbXNFBF2m0Lr4k4YpYKnpLb8tRft8MLOLRbYAt/KnxE/YKvRZul7kw==}
 
   prismarine-windows@2.10.0:
     resolution: {integrity: sha512-ssXLGAr7W9JLvvLjYMoo1j4j6AdJaoIb0/HlqkWMWlQqvZJeiS4zyBjJY6+GtR4OzpjkEf6IvF5cNXhHFpbcZQ==}
@@ -1529,6 +1587,10 @@ packages:
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
+
+  require-self@0.2.3:
+    resolution: {integrity: sha512-keGBWkK0PWJGFAd6IznpjM5zZzySbsrvzq0ElXpZ4G8hzymV9I+/OnC916MF5mRxHRWSZKGIyCFJ73BZFz3xaA==}
+    hasBin: true
 
   ret@0.1.15:
     resolution: {integrity: sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==}
@@ -1667,6 +1729,11 @@ packages:
 
   typed-emitter@2.1.0:
     resolution: {integrity: sha512-g/KzbYKbH5C2vPkaXGu8DJlHrGKHLsM25Zg9WuC9pMGfuvT+X25tZQWo5fK1BjBm8+UrVE9LDCvaY0CQk+fXDA==}
+
+  typescript@3.9.10:
+    resolution: {integrity: sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
 
   typescript@6.0.2:
     resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
@@ -2227,6 +2294,8 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
+  '@nxg-org/mineflayer-util-plugin@1.8.4': {}
+
   '@oxc-project/types@0.122.0': {}
 
   '@polka/url@1.0.0-next.29': {}
@@ -2443,6 +2512,8 @@ snapshots:
   '@types/node-rsa@1.1.4':
     dependencies:
       '@types/node': 25.5.0
+
+  '@types/node@14.18.63': {}
 
   '@types/node@25.5.0':
     dependencies:
@@ -3110,6 +3181,8 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
+  minecraft-data@2.221.0: {}
+
   minecraft-data@3.109.0: {}
 
   minecraft-folder-path@1.2.0: {}
@@ -3137,6 +3210,93 @@ snapshots:
       yggdrasil: 1.8.0
     transitivePeerDependencies:
       - encoding
+      - supports-color
+
+  mineflayer-armor-manager@2.0.1(mineflayer@4.37.0):
+    dependencies:
+      minecraft-data: 3.109.0
+      mineflayer: 4.37.0
+
+  mineflayer-auto-eat@5.0.3:
+    dependencies:
+      '@nxg-org/mineflayer-util-plugin': 1.8.4
+      mineflayer: 4.37.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
+  mineflayer-collectblock@1.6.0:
+    dependencies:
+      mineflayer: 4.37.0
+      mineflayer-pathfinder: 2.4.5
+      mineflayer-tool: 1.2.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
+  mineflayer-pathfinder@2.4.5:
+    dependencies:
+      minecraft-data: 3.109.0
+      prismarine-block: 1.23.0
+      prismarine-entity: 2.6.0
+      prismarine-item: 1.18.0
+      prismarine-nbt: 2.8.0
+      prismarine-physics: 1.11.0
+      vec3: 0.1.10
+    transitivePeerDependencies:
+      - supports-color
+
+  mineflayer-pvp@1.3.2(prismarine-registry@1.12.0):
+    dependencies:
+      mineflayer: 4.37.0
+      mineflayer-pathfinder: 2.4.5
+      mineflayer-utils: 0.1.4(prismarine-registry@1.12.0)
+    transitivePeerDependencies:
+      - encoding
+      - prismarine-registry
+      - supports-color
+
+  mineflayer-tool@1.2.0:
+    dependencies:
+      mineflayer: 4.37.0
+      mineflayer-pathfinder: 2.4.5
+      prismarine-nbt: 2.8.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
+  mineflayer-utils@0.1.4(prismarine-registry@1.12.0):
+    dependencies:
+      '@types/node': 14.18.63
+      mineflayer: 2.41.0(prismarine-registry@1.12.0)
+      prismarine-entity: 1.2.0
+      require-self: 0.2.3
+      typescript: 3.9.10
+    transitivePeerDependencies:
+      - encoding
+      - prismarine-registry
+      - supports-color
+
+  mineflayer@2.41.0(prismarine-registry@1.12.0):
+    dependencies:
+      minecraft-data: 2.221.0
+      minecraft-protocol: 1.66.0
+      prismarine-biome: 1.4.0(prismarine-registry@1.12.0)
+      prismarine-block: 1.23.0
+      prismarine-chat: 1.13.0
+      prismarine-chunk: 1.40.0
+      prismarine-entity: 1.2.0
+      prismarine-item: 1.18.0
+      prismarine-physics: 1.11.0
+      prismarine-recipe: 1.5.0(prismarine-registry@1.12.0)
+      prismarine-windows: 1.6.0
+      prismarine-world: 3.7.0
+      protodef: 1.19.0
+      typed-emitter: 1.4.0
+      vec3: 0.1.10
+    transitivePeerDependencies:
+      - encoding
+      - prismarine-registry
       - supports-color
 
   mineflayer@4.37.0:
@@ -3353,6 +3513,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  prismarine-entity@1.2.0:
+    dependencies:
+      vec3: 0.1.10
+
   prismarine-entity@2.6.0:
     dependencies:
       prismarine-chat: 1.13.0
@@ -3396,6 +3560,10 @@ snapshots:
       prismarine-nbt: 2.8.0
     transitivePeerDependencies:
       - supports-color
+
+  prismarine-windows@1.6.0:
+    dependencies:
+      prismarine-item: 1.18.0
 
   prismarine-windows@2.10.0:
     dependencies:
@@ -3472,6 +3640,8 @@ snapshots:
   remeda@2.33.4: {}
 
   require-from-string@2.0.2: {}
+
+  require-self@0.2.3: {}
 
   ret@0.1.15: {}
 
@@ -3624,6 +3794,8 @@ snapshots:
   typed-emitter@2.1.0:
     optionalDependencies:
       rxjs: 7.8.2
+
+  typescript@3.9.10: {}
 
   typescript@6.0.2: {}
 
