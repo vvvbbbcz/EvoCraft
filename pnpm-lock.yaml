@@ -17,6 +17,9 @@ importers:
       '@prisma/client':
         specifier: ^7.6.0
         version: 7.6.0(prisma@7.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(typescript@6.0.2)
+      minecraft-data:
+        specifier: ^3.109.0
+        version: 3.109.0
       minecraft-protocol:
         specifier: ^1.66.0
         version: 1.66.0
@@ -41,6 +44,9 @@ importers:
       prisma:
         specifier: ^7.6.0
         version: 7.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      prismarine-item:
+        specifier: ^1.18.0
+        version: 1.18.0
       socket.io:
         specifier: ^4.8.3
         version: 4.8.3
