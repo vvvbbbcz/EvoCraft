@@ -1,29 +1,29 @@
 import { ChildProcess, spawn } from 'child_process';
-import { AgentInitArgs } from './init_agent.ts';
+import type { AgentInitArgs } from './init_agent.ts';
+import { BotSettings } from '../bot.ts';
+import { appSettings } from '../../../index.ts';
 // import { logoutAgent } from '../mindcraft/mindserver.js';
 
 export class AgentProcess {
-    name: string;
-    port: number;
+    settings: BotSettings;
     id = 0;
     running = false;
     process?: ChildProcess;
 
-    constructor(name: string, port: number) {
-        this.name = name;
-        this.port = port;
+    constructor(settings: BotSettings) {
+        this.settings = settings;
     }
 
-    start(load_memory = false, init_message: string | null = null, id = 0) {
+    start(id = 0, load_memory = false, init_message?: string) {
         this.id = id;
         this.running = true;
 
         const profile: AgentInitArgs = {
-            name: this.name,
-            port: this.port,
-            id: this.id,
-            load_memory: load_memory,
-            init_message: init_message
+            id,
+            settings: this.settings,
+            socket_port: appSettings.socket_port,
+            load_memory,
+            init_message
         }
 
         const args = ['src/bot/process/init_agent.ts', JSON.stringify(profile)];
@@ -48,7 +48,7 @@ export class AgentProcess {
                     return;
                 }
                 console.log('Restarting agent...');
-                this.start(true, 'Agent process restarted.', id);
+                this.start(id, true, 'Agent process restarted.');
                 last_restart = Date.now();
             }
         });
@@ -67,20 +67,20 @@ export class AgentProcess {
 
     forceRestart() {
         if (this.running && this.process && !this.process.killed) {
-            console.log(`Agent process for ${this.name} is still running. Attempting to force restart.`);
+            console.log(`Agent process for ${this.settings} is still running. Attempting to force restart.`);
 
             const restartTimeout = setTimeout(() => {
-                console.warn(`Agent ${this.name} did not stop in time. It might be stuck.`);
+                console.warn(`Agent ${this.settings} did not stop in time. It might be stuck.`);
             }, 5000); // 5 seconds to exit
 
             this.process.once('exit', () => {
                 clearTimeout(restartTimeout);
-                console.log(`Stopped hanging agent ${this.name}. Now restarting.`);
-                this.start(true, 'Agent process restarted.', this.id);
+                console.log(`Stopped hanging agent ${this.settings}. Now restarting.`);
+                this.start(this.id, true, 'Agent process restarted.');
             });
             this.stop(); // sends SIGINT
         } else {
-            this.start(true, 'Agent process restarted.', this.id);
+            this.start(this.id, true, 'Agent process restarted.');
         }
     }
 }
