@@ -1,7 +1,7 @@
+import { createWebSocket } from './src/web/server/socketServer.ts';
+
 interface Settings {
-    web_server_port: number;
-    mc_server_ip: string;
-    mc_server_port: number;
+    socket_port: number;
     postgres_host: string;
     postgres_port: number;
     postgres_db: string;
@@ -12,13 +12,10 @@ interface Settings {
 function parseEnv(): Settings {
     const env = process.env;
 
-    const web_server_port = parseInt(env.WEB_SERVER_PORT ?? "3000");
-    const mc_server_port = parseInt(env.MC_SERVER_PORT ?? "25565");
+    const socket_server_port = parseInt(env.SOCKET_SERVER_PORT ?? "3000");
 
     return {
-        web_server_port: isNaN(web_server_port) ? 3000 : web_server_port,
-        mc_server_ip: env.MC_SERVER_IP ?? "127.0.0.1",
-        mc_server_port: isNaN(mc_server_port) ? 25565 : mc_server_port,
+        socket_port: isNaN(socket_server_port) ? 3000 : socket_server_port,
         postgres_host: env.POSTGRES_HOST ?? "127.0.0.1",
         postgres_port: parseInt(env.POSTGRES_PORT ?? "5432"),
         postgres_db: env.POSTGRES_DB ?? "evocraft",
@@ -27,10 +24,7 @@ function parseEnv(): Settings {
     }
 }
 
-function main() {
-    const settings = parseEnv();
+const settings = parseEnv();
+const server = createWebSocket(settings.socket_port);
 
-    console.log(settings);
-}
-
-main();
+export { settings as appSettings, server as socketServer }
