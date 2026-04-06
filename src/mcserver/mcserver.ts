@@ -1,9 +1,12 @@
 import mc from 'minecraft-protocol';
 
-interface MCServerInfo {
+export interface MCServerSettings {
     host: string,
     port: number,
     version?: string,
+}
+
+interface MCServerInfo extends MCServerSettings {
     desc?: string,
     ping?: number,
 }
@@ -51,7 +54,8 @@ export async function serverInfo(ip: string, port: number, timeout = 1000): Prom
  * @param version The version to search for.
  * @returns A Promise that resolves to the server info object.
  */
-export async function getServer(host: string, port: number, version?: string) {
+export async function getServer(settings: MCServerSettings) {
+    const { host, port, version } = settings;
     const server = await serverInfo(host, port, 1000);
 
     // Server not found
