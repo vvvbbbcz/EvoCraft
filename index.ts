@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { createWebSocket } from './src/web/server/socketServer.ts';
 
 interface Settings {
