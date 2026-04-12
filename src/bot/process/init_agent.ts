@@ -19,11 +19,8 @@ const init_args: AgentInitArgs = JSON.parse(args);
 
 (async () => {
     try {
-        // console.log('Connecting to socket server');
-        // await socketProxy.connect(argv.socket_port);
         console.log('Starting agent');
-        const agent = new Agent(init_args.id, init_args.settings, init_args.socket_port);
-        // socketProxy.setAgent(agent);
+        const agent = new Agent(init_args);
         await agent.start(init_args.load_memory, init_args.init_message);
     } catch (error) {
         console.error(`Failed to start agent process: ${error}`);
