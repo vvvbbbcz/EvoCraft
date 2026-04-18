@@ -13,6 +13,7 @@ const drawer = ref(true);
 
         <v-app-bar>
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar-title>{{ $t('appName') }}</v-app-bar-title>
         </v-app-bar>
 
         <v-main>
