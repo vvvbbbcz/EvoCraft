@@ -4,6 +4,7 @@ import router from './router'
 import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
 import { createVuetify } from 'vuetify'
 import { createI18n, useI18n } from 'vue-i18n'
+import { io } from 'socket.io-client'
 
 import 'unfonts.css'
 import '@mdi/font/css/materialdesignicons.css'
@@ -33,3 +34,9 @@ app.use(vuetify)
 app.use(i18n)
 
 app.mount('#app')
+
+export const socket = io('http://localhost:3000', {
+    auth: {
+        clientType: "human"
+    }
+})
