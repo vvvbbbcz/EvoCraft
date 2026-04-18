@@ -13,6 +13,9 @@ export default {
                     username: {
                         required: "用户名为必填项",
                     },
+                    auth: {
+                        required: "认证方式为必填项",
+                    }
                 },
                 submit: "创建"
             }

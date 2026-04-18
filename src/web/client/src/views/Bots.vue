@@ -1,5 +1,59 @@
 <script setup lang="ts">
+import { socket } from '@/main';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import type { VForm } from 'vuetify/components';
+
+const { t } = useI18n();
+
+const adding = ref(false);
+
+const form = ref<VForm>();
+const formState = ref({
+    username: '',
+    auth: 'offline',
+});
+const formRules = {
+    username: [(v: string) => !!v || t('page.bots.add.validation.username.required')],
+    auth: [(v: string) => !!v || t('page.bots.add.validation.auth.required')],
+};
+
+async function submit() {
+    if (!form.value) return;
+
+    const { valid } = await form.value.validate();
+    if (!valid) return;
+
+    socket.emit('createBot', formState.value);
+    form.value.reset();
+
+    adding.value = false;
+}
 </script>
 
 <template>
+    <div>
+        <v-navigation-drawer v-model="adding" location="right">
+            <v-container>
+                <v-form ref="form" validate-on="submit lazy" @submit.prevent="submit">
+                    <v-text-field v-model="formState.username" :label="$t('page.bots.add.username')"
+                        :rules="formRules.username" variant="outlined" />
+
+                    <v-radio-group v-model="formState.auth" :label="$t('page.bots.add.auth.title')"
+                        :rules="formRules.auth">
+                        <v-radio :label="$t('page.bots.add.auth.offline')" value="offline" />
+                    </v-radio-group>
+
+                    <v-btn block color="primary" type="submit">
+                        {{ $t('page.bots.add.submit') }}
+                    </v-btn>
+                </v-form>
+            </v-container>
+        </v-navigation-drawer>
+
+        <v-fab :icon="adding ? 'mdi-close' : 'mdi-plus'" color="primary" location="right bottom" size="large" app
+            @click="adding = !adding" />
+    </div>
 </template>
+
+<style></style>

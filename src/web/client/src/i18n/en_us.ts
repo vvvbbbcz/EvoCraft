@@ -13,6 +13,9 @@ export default {
                     username: {
                         required: "Username is required",
                     },
+                    auth: {
+                        required: "Authentication method is required",
+                    }
                 },
                 submit: "Create"
             }
