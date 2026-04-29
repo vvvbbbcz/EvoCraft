@@ -12,18 +12,10 @@ export interface BotProfile {
 }
 
 class BotManager {
-    static instance: BotManager;
     private agent_count = 0;
     private processes: { [username: string]: AgentProcess } = {};
 
-    private constructor() { }
-
-    static getInstance() {
-        if (!BotManager.instance) {
-            BotManager.instance = new BotManager();
-        }
-        return BotManager.instance;
-    }
+    constructor() { }
 
     async createAgent(settings: BotSettings, load_memory?: boolean, init_message?: string) {
         const username = settings.profile.username;
@@ -61,3 +53,5 @@ class BotManager {
         }
     }
 }
+
+export const botManager = new BotManager();
