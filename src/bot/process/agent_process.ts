@@ -1,6 +1,6 @@
 import { ChildProcess, spawn } from 'child_process';
 import type { AgentInitArgs } from './init_agent.ts';
-import { BotSettings } from '../bot.ts';
+import type { BotSettings } from '../bot.ts';
 import { appSettings } from '../../../index.ts';
 // import { logoutAgent } from '../mindcraft/mindserver.js';
 

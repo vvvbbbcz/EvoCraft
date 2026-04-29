@@ -1,5 +1,5 @@
 import { AgentProcess } from "./process/agent_process.ts";
-import { getServer, MCServerSettings } from "../mcserver/mcserver.ts";
+import { getServer, type MCServerSettings } from "../mcserver/mcserver.ts";
 
 export interface BotSettings {
     profile: BotProfile,
