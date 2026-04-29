@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { createWebSocket } from './src/web/server/socketServer.ts';
-import { Sequelize } from 'sequelize';
+import sequelize, { Bot } from './src/database/sequelize.ts';
 
 interface Settings {
     socket_port: number;
@@ -20,14 +20,16 @@ function parseEnv(): Settings {
 
 const settings = parseEnv();
 
-const database = new Sequelize(settings.postgres_url);
-database.authenticate().then(_ => {
-    console.log("Connected to database")
-}).catch(err => {
-    console.error(`Failed to connect to database: ${err}`)
-    process.exit(255)
-})
+sequelize.init();
 
 const server = createWebSocket(settings.socket_port);
 
-export { settings as appSettings, server as socketServer, database }
+try {
+    for (const bot of await Bot.findAll()) {
+        console.log(`Loaded bot: ${bot.username}`)
+    }
+} catch (err) {
+    console.error(`Failed to load bots: ${err}`)
+}
+
+export { settings as appSettings, server as socketServer }
