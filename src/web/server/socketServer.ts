@@ -1,4 +1,7 @@
 import { Server } from 'socket.io'
+import { Bot } from '../../database/sequelize.ts';
+import { botManager } from '../../bot/bot.ts';
+import { appSettings } from '../../../index.ts';
 
 export function createWebSocket(port = 3000) {
     console.log(`Starting socket server on ${port}`)
@@ -20,8 +23,23 @@ export function createWebSocket(port = 3000) {
         if (clientType === 'human') {
             client.join('type:humans');
 
-            client.on('createBot', (profile) => {
+            client.on('createBot', async (profile) => {
                 console.log('Creating bot with profile:', profile);
+
+                await Bot.create({ username: profile.username, auth: profile.auth })
+                    .then(async () => {
+                        await botManager.createAgent({
+                            profile,
+                            server: {
+                                host: appSettings.mc_server_host,
+                                port: appSettings.mc_server_port,
+                                version: appSettings.mc_server_version
+                            }
+                        });
+                    })
+                    .catch(err => {
+                        console.error(`Failed to create bot in database: ${err}`);
+                    });
             });
         } else if (clientType === 'agent') {
             const { id, profile } = client.handshake.auth;
