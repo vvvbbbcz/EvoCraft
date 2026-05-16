@@ -29,8 +29,8 @@ class BotManager {
                 console.warn('Attempting to connect anyway...');
             })
 
-            const agentProcess = new AgentProcess(settings);
-            agentProcess.start(agentIndex, load_memory, init_message);
+            const agentProcess = new AgentProcess(agentIndex, settings);
+            agentProcess.start(load_memory, init_message);
             this.processes[settings.profile.username] = agentProcess;
         } catch (error) {
             console.error(`Error creating agent ${username}:`, error);

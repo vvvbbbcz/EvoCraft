@@ -6,20 +6,20 @@ import { appSettings } from '../../../index.ts';
 
 export class AgentProcess {
     settings: BotSettings;
-    id = 0;
+    id: number;
     running = false;
     process?: ChildProcess;
 
-    constructor(settings: BotSettings) {
+    constructor(id: number, settings: BotSettings) {
+        this.id = id;
         this.settings = settings;
     }
 
-    start(id = 0, load_memory = false, init_message?: string) {
-        this.id = id;
+    start(load_memory = false, init_message?: string) {
         this.running = true;
 
         const profile: AgentInitArgs = {
-            id,
+            id: this.id,
             settings: this.settings,
             socket_port: appSettings.socket_port,
             load_memory,
@@ -48,7 +48,7 @@ export class AgentProcess {
                     return;
                 }
                 console.log('Restarting agent...');
-                this.start(id, true, 'Agent process restarted.');
+                this.start(true, 'Agent process restarted.');
                 last_restart = Date.now();
             }
         });
@@ -76,11 +76,11 @@ export class AgentProcess {
             this.process.once('exit', () => {
                 clearTimeout(restartTimeout);
                 console.log(`Stopped hanging agent ${this.settings}. Now restarting.`);
-                this.start(this.id, true, 'Agent process restarted.');
+                this.start(true, 'Agent process restarted.');
             });
             this.stop(); // sends SIGINT
         } else {
-            this.start(this.id, true, 'Agent process restarted.');
+            this.start(true, 'Agent process restarted.');
         }
     }
 }
