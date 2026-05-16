@@ -1,7 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { socket } from './socket';
 
+const online = ref(false);
 const drawer = ref(true);
+
+socket.on('connect', () => {
+    online.value = true;
+});
+
+socket.on('disconnect', () => {
+    online.value = false;
+});
+
+socket.on('connect_error', () => {
+    online.value = false;
+});
 </script>
 
 <template>
@@ -12,8 +26,17 @@ const drawer = ref(true);
         </v-navigation-drawer>
 
         <v-app-bar>
-            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            <template v-slot:prepend>
+                <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            </template>
+
             <v-app-bar-title>{{ $t('appName') }}</v-app-bar-title>
+
+            <template v-slot:append>
+                <v-chip :color="online ? 'green' : 'red'">
+                    {{ online ? $t('appState.socket.online') : $t('appState.socket.offline') }}
+                </v-chip>
+            </template>
         </v-app-bar>
 
         <v-main>

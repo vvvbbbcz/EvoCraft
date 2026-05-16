@@ -1,5 +1,11 @@
 export default {
     appName: "EvoCraft",
+    appState: {
+        socket: {
+            online: "在线",
+            offline: "离线",
+        }
+    },
     page: {
         bots: {
             newBot: "创建 Bot",
