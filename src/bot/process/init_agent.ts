@@ -1,5 +1,5 @@
 import { Agent } from '../agent/agent.ts';
-import { BotSettings } from '../bot.ts';
+import type { BotSettings } from '../bot.ts';
 
 export interface AgentInitArgs {
     id: number;
