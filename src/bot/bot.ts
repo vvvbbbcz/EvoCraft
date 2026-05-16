@@ -13,7 +13,7 @@ export interface BotProfile {
 
 class BotManager {
     private agent_count = 0;
-    private processes: { [username: string]: AgentProcess } = {};
+    private processes: { [id: number]: AgentProcess } = {};
 
     constructor() { }
 
@@ -31,10 +31,10 @@ class BotManager {
 
             const agentProcess = new AgentProcess(agentIndex, settings);
             agentProcess.start(load_memory, init_message);
-            this.processes[settings.profile.username] = agentProcess;
+            this.processes[agentIndex] = agentProcess;
         } catch (error) {
             console.error(`Error creating agent ${username}:`, error);
-            this.destroyAgent(username);
+            this.destroyAgent(agentIndex);
             return {
                 success: false,
                 error
@@ -46,10 +46,10 @@ class BotManager {
         };
     }
 
-    destroyAgent(name: string) {
-        if (this.processes[name]) {
-            this.processes[name].stop();
-            delete this.processes[name];
+    destroyAgent(id: number) {
+        if (this.processes[id]) {
+            this.processes[id].stop();
+            delete this.processes[id];
         }
     }
 }
