@@ -29,10 +29,38 @@ async function submit() {
 
     adding.value = false;
 }
+
+const bots = ref<{ id: number; username: string }[]>([]);
+
+socket.emit('list-bots');
+
+socket.on('list-bots', (data) => {
+    bots.value = data;
+});
+
+socket.on('add-bot', (data) => {
+    bots.value.push(data);
+});
 </script>
 
 <template>
     <div>
+        <v-container>
+            <v-row>
+                <v-col cols="12" v-for="bot in bots">
+                    <v-card>
+                        <template v-slot:title>
+                            {{ bot.username }}
+                        </template>
+
+                        <template v-slot:subtitle>
+                            {{ `ID: ${bot.id}` }}
+                        </template>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+
         <v-navigation-drawer v-model="adding" location="right">
             <v-container>
                 <v-form ref="form" validate-on="submit lazy" @submit.prevent="submit">
