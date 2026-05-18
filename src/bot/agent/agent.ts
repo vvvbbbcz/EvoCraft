@@ -1,13 +1,13 @@
 import { initMineflayerBot } from './mineflayer_bot.ts';
 import type { BotSettings } from '../bot.ts';
-import { SocketProxy } from '../process/socket_proxy.ts';
 import type { Bot } from 'mineflayer';
 import type { AgentInitArgs } from '../process/init_agent.ts';
+import { io, Socket } from 'socket.io-client';
 
 export class Agent {
     id: number;
     settings: BotSettings;
-    socket_proxy: SocketProxy;
+    socket: Socket;
     bot?: Bot;
     interrupt = false;
     shut_up = false;
@@ -17,10 +17,19 @@ export class Agent {
 
         this.id = args.id;
         this.settings = args.settings;
-        this.socket_proxy = new SocketProxy(args.socket_port);
+        this.socket = io(`http://localhost:${args.socket_port}`, {
+            autoConnect: false,
+            auth: {
+                clientType: "agent",
+                id: this.id,
+                profile: this.settings.profile
+            }
+        });
     }
 
     async start(load_memory = false, init_message: string | null = null) {
+        await this.connectSocket()
+
         const name = this.settings.profile.username;
 
         console.log(name, 'logging into minecraft...');
@@ -28,7 +37,7 @@ export class Agent {
 
         this.bot.on('login', () => {
             console.log(name, 'logged in!');
-            this.socket_proxy.login();
+            this.socket.emit('botLogin', this.id);
         });
 
         const spawnTimeout = setTimeout(() => {
@@ -38,6 +47,32 @@ export class Agent {
         this.bot.once('spawn', async () => {
             clearTimeout(spawnTimeout);
             console.log(`${name} spawned.`);
+        });
+    }
+
+    private async connectSocket() {
+        if (this.socket.connected) return;
+
+        this.socket.connect();
+
+        await new Promise((resolve, reject) => {
+            this.socket?.on('connect', () => resolve(undefined));
+            this.socket?.on('connect_error', (err) => {
+                console.error('Connection failed:', err);
+                reject(err);
+            });
+        });
+
+        console.log(this.settings.profile.username, 'connected to SocketServer');
+
+        this.socket.on('disconnect', () => {
+            console.log('Disconnected from SocketServer');
+            this.killAll('Disconnected from SocketServer. Killing agent process.');
+        });
+
+        this.socket.on('restartAgent', (agentName: string) => {
+            console.log(`Restarting agent: ${agentName}`);
+            this.killAll();
         });
     }
 
@@ -55,7 +90,7 @@ export class Agent {
 
     shutdown() {
         this.bot?.quit();
-        this.socket_proxy.shutdown();
+        this.socket.emit('botShutdown', this.id);
     }
 
     killAll(msg = 'Killing agent process...', code = 0) {
