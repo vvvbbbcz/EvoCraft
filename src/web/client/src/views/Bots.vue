@@ -32,9 +32,9 @@ async function submit() {
 
 const bots = ref<{ id: number; username: string }[]>([]);
 
-socket.emit('list-bots');
+socket.emit('listBots');
 
-socket.on('list-bots', (data) => {
+socket.on('listBots', (data) => {
     bots.value = data;
 });
 

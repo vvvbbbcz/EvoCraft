@@ -42,9 +42,9 @@ export function createWebSocket(port = 3000) {
                     });
             });
 
-            client.on('list-bots', async () => {
+            client.on('listBots', async () => {
                 const bots = botManager.listAgents();
-                client.emit('list-bots', bots);
+                client.emit('listBots', bots);
             });
         } else if (clientType === 'agent') {
             const { id, profile } = client.handshake.auth;
