@@ -46,10 +46,16 @@ class BotManager {
         };
     }
 
+    listAgents() {
+        return Object.entries(this.processes).map(([id, process]) => ({
+            id: Number(id),
+            username: process.settings.profile.username,
+        }));
+    }
+
     destroyAgent(id: number) {
         if (this.processes[id]) {
             this.processes[id].stop();
-            delete this.processes[id];
         }
     }
 }

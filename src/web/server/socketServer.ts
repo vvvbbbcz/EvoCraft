@@ -41,6 +41,11 @@ export function createWebSocket(port = 3000) {
                         console.error(`Failed to create bot in database: ${err}`);
                     });
             });
+
+            client.on('list-bots', async () => {
+                const bots = botManager.listAgents();
+                client.emit('list-bots', bots);
+            });
         } else if (clientType === 'agent') {
             const { id, profile } = client.handshake.auth;
             console.log(`Agent connected: ${id}, profile: ${profile}`,);
