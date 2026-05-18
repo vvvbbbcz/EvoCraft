@@ -13,7 +13,7 @@ export interface BotProfile {
 }
 
 class BotManager {
-    private processes: { [id: number]: AgentProcess } = {};
+    private processes: Map<number, AgentProcess> = new Map();
 
     constructor() { }
 
@@ -30,7 +30,7 @@ class BotManager {
 
             const agentProcess = new AgentProcess(id, settings);
             agentProcess.start(load_memory, init_message);
-            this.processes[id] = agentProcess;
+            this.processes.set(id, agentProcess);
 
             socketServer.to('type:humans').emit('add-bot', { id, username });
         } catch (error) {
@@ -48,16 +48,14 @@ class BotManager {
     }
 
     listAgents() {
-        return Object.entries(this.processes).map(([id, process]) => ({
-            id: Number(id),
+        return Array.from(this.processes.entries()).map(([id, process]) => ({
+            id,
             username: process.settings.profile.username,
         }));
     }
 
     destroyAgent(id: number) {
-        if (this.processes[id]) {
-            this.processes[id].stop();
-        }
+        this.processes.get(id)?.stop();
     }
 }
 
