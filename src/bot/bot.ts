@@ -1,5 +1,6 @@
 import { AgentProcess } from "./process/agent_process.ts";
 import { getServer, type MCServerSettings } from "../mcserver/mcserver.ts";
+import { socketServer } from "../../index.ts";
 
 export interface BotSettings {
     profile: BotProfile,
@@ -32,6 +33,8 @@ class BotManager {
             const agentProcess = new AgentProcess(agentIndex, settings);
             agentProcess.start(load_memory, init_message);
             this.processes[agentIndex] = agentProcess;
+
+            socketServer.to('type:humans').emit('add-bot', { id: agentIndex, username });
         } catch (error) {
             console.error(`Error creating agent ${username}:`, error);
             this.destroyAgent(agentIndex);
