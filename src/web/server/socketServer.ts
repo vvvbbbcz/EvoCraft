@@ -27,8 +27,8 @@ export function createWebSocket(port = 3000) {
                 console.log('Creating bot with profile:', profile);
 
                 await Bot.create({ username: profile.username, auth: profile.auth })
-                    .then(async () => {
-                        await botManager.createAgent({
+                    .then(async (bot) => {
+                        await botManager.createAgent(bot.id, {
                             profile,
                             server: {
                                 host: appSettings.mc_server_host,

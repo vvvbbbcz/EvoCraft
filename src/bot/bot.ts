@@ -13,14 +13,12 @@ export interface BotProfile {
 }
 
 class BotManager {
-    private agent_count = 0;
     private processes: { [id: number]: AgentProcess } = {};
 
     constructor() { }
 
-    async createAgent(settings: BotSettings, load_memory?: boolean, init_message?: string) {
+    async createAgent(id: number, settings: BotSettings, load_memory?: boolean, init_message?: string) {
         const username = settings.profile.username;
-        const agentIndex = ++this.agent_count;
 
         try {
             await getServer(settings.server).then(server => {
@@ -30,14 +28,14 @@ class BotManager {
                 console.warn('Attempting to connect anyway...');
             })
 
-            const agentProcess = new AgentProcess(agentIndex, settings);
+            const agentProcess = new AgentProcess(id, settings);
             agentProcess.start(load_memory, init_message);
-            this.processes[agentIndex] = agentProcess;
+            this.processes[id] = agentProcess;
 
-            socketServer.to('type:humans').emit('add-bot', { id: agentIndex, username });
+            socketServer.to('type:humans').emit('add-bot', { id, username });
         } catch (error) {
             console.error(`Error creating agent ${username}:`, error);
-            this.destroyAgent(agentIndex);
+            this.destroyAgent(id);
             return {
                 success: false,
                 error

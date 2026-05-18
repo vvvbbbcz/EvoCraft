@@ -33,7 +33,7 @@ const server = createWebSocket(settings.socket_port);
 
 try {
     for (const bot of await Bot.findAll()) {
-        botManager.createAgent({
+        botManager.createAgent(bot.id, {
             profile: {
                 username: bot.username,
                 auth: bot.auth as 'mojang' | 'microsoft' | 'offline',
