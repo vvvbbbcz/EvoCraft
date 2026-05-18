@@ -30,16 +30,21 @@ async function submit() {
     adding.value = false;
 }
 
-const bots = ref<{ id: number; username: string }[]>([]);
+interface BotStatus {
+    username: string;
+    online: boolean;
+}
+
+const bots = ref<Map<number, Partial<BotStatus>>>(new Map());
 
 socket.emit('listBots');
 
-socket.on('listBots', (data) => {
-    bots.value = data;
+socket.on('listBots', (data: { id: number, username: string }[]) => {
+    bots.value = new Map(data.map(bot => [bot.id, { username: bot.username }]));
 });
 
-socket.on('add-bot', (data) => {
-    bots.value.push(data);
+socket.on('botStatus', (id: number, data: Partial<BotStatus>) => {
+    bots.value.set(id, { ...bots.value.get(id), ...data });
 });
 </script>
 
@@ -47,14 +52,14 @@ socket.on('add-bot', (data) => {
     <div>
         <v-container>
             <v-row>
-                <v-col cols="12" v-for="bot in bots">
+                <v-col cols="12" v-for="[id, bot] in bots">
                     <v-card>
                         <template v-slot:title>
                             {{ bot.username }}
                         </template>
 
                         <template v-slot:subtitle>
-                            {{ `ID: ${bot.id}` }}
+                            {{ `ID: ${id}` }}
                         </template>
                     </v-card>
                 </v-col>

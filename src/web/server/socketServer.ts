@@ -53,11 +53,11 @@ export function createWebSocket(port = 3000) {
             client.join('type:agents');
             client.join(`agent:${id}`);
 
-            client.to('type:humans').emit('agentStatus', { id, username: profile.username, online: true });
+            client.to('type:humans').emit('botStatus', id, { username: profile.username, online: true });
 
             client.on('disconnect', () => {
                 console.log(`Agent disconnected: ${id}`);
-                client.to('type:humans').emit('agentStatus', { id, username: profile.username, online: false });
+                client.to('type:humans').emit('botStatus', id, { username: profile.username, online: false });
             });
         }
     });

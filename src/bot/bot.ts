@@ -31,8 +31,6 @@ class BotManager {
             const agentProcess = new AgentProcess(id, settings);
             agentProcess.start(load_memory, init_message);
             this.processes.set(id, agentProcess);
-
-            socketServer.to('type:humans').emit('add-bot', { id, username });
         } catch (error) {
             console.error(`Error creating agent ${username}:`, error);
             this.destroyAgent(id);
