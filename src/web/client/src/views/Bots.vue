@@ -55,7 +55,10 @@ socket.on('botStatus', (id: number, data: Partial<BotStatus>) => {
                 <v-col cols="12" v-for="[id, bot] in bots">
                     <v-card>
                         <template v-slot:title>
-                            {{ bot.username }}
+                            <span class="m-r-1">{{ bot.username }}</span>
+                            <v-chip :color="bot.online ? 'green' : 'red'">
+                                {{ bot.online ? $t('appState.socket.online') : $t('appState.socket.offline') }}
+                            </v-chip>
                         </template>
 
                         <template v-slot:subtitle>

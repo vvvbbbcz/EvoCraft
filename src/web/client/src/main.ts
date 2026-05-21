@@ -8,6 +8,7 @@ import { createI18n, useI18n } from 'vue-i18n'
 import 'unfonts.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
+import './assets/css/style.css'
 import messages from './i18n'
 
 const i18n = createI18n({
