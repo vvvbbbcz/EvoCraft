@@ -17,10 +17,9 @@ export class Agent {
 
         this.id = args.id;
         this.settings = args.settings;
-        this.socket = io(`http://localhost:${args.socket_port}`, {
+        this.socket = io(`http://localhost:${args.socket_port}/bot`, {
             autoConnect: false,
             auth: {
-                clientType: "agent",
                 id: this.id,
                 profile: this.settings.profile
             }

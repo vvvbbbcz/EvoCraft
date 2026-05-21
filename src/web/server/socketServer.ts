@@ -8,58 +8,50 @@ export function createWebSocket(port = 3000) {
 
     const server = new Server({ cors: {} });
 
-    server.use((socket, next) => {
-        const { clientType } = socket.handshake.auth;
-        if (clientType === 'human' || clientType === 'agent') {
-            next();
-        } else {
-            next(new Error('Invalid client type'));
-        }
+    const humanNamespace = server.of('/human');
+    const botNamespace = server.of('/bot');
+
+    humanNamespace.on('connection', (client) => {
+        console.log('A human connected');
+
+        client.on('createBot', async (profile) => {
+            console.log('Creating bot with profile:', profile);
+
+            await Bot.create({ username: profile.username, auth: profile.auth })
+                .then(async (bot) => {
+                    await botManager.createAgent(bot.id, {
+                        profile,
+                        server: {
+                            host: appSettings.mc_server_host,
+                            port: appSettings.mc_server_port,
+                            version: appSettings.mc_server_version
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.error(`Failed to create bot in database: ${err}`);
+                });
+        });
+
+        client.on('listBots', async () => {
+            const bots = botManager.listAgents();
+            client.emit('listBots', bots);
+        });
     });
 
-    server.on('connection', (client) => {
-        const { clientType } = client.handshake.auth;
+    botNamespace.on('connection', (client) => {
+        const { id, profile } = client.handshake.auth;
+        console.log(`Agent connected, id: ${id}, username: ${profile.username}`);
 
-        if (clientType === 'human') {
-            client.join('type:humans');
+        client.join(`bot:${id}`);
 
-            client.on('createBot', async (profile) => {
-                console.log('Creating bot with profile:', profile);
+        humanNamespace.emit('botStatus', id, { username: profile.username, online: true });
 
-                await Bot.create({ username: profile.username, auth: profile.auth })
-                    .then(async (bot) => {
-                        await botManager.createAgent(bot.id, {
-                            profile,
-                            server: {
-                                host: appSettings.mc_server_host,
-                                port: appSettings.mc_server_port,
-                                version: appSettings.mc_server_version
-                            }
-                        });
-                    })
-                    .catch(err => {
-                        console.error(`Failed to create bot in database: ${err}`);
-                    });
-            });
-
-            client.on('listBots', async () => {
-                const bots = botManager.listAgents();
-                client.emit('listBots', bots);
-            });
-        } else if (clientType === 'agent') {
-            const { id, profile } = client.handshake.auth;
-            console.log(`Agent connected: ${id}, profile: ${profile}`,);
-
-            client.join('type:agents');
-            client.join(`agent:${id}`);
-
-            client.to('type:humans').emit('botStatus', id, { username: profile.username, online: true });
-
-            client.on('disconnect', () => {
-                console.log(`Agent disconnected: ${id}`);
-                client.to('type:humans').emit('botStatus', id, { username: profile.username, online: false });
-            });
-        }
+        client.on('disconnect', () => {
+            console.log(`Agent disconnected: ${id}`);
+            client.leave(`bot:${id}`);
+            humanNamespace.emit('botStatus', id, { online: false });
+        });
     });
 
     server.listen(port);
