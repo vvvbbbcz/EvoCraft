@@ -37,6 +37,10 @@ export function createWebSocket(port = 3000) {
             const bots = botManager.listAgents();
             client.emit('listBots', bots);
         });
+
+        client.on('botStatus', (id) => {
+            botNamespace.to(`bot:${id}`).emit('getStatus');
+        });
     });
 
     botNamespace.on('connection', (client) => {
@@ -52,6 +56,10 @@ export function createWebSocket(port = 3000) {
             client.leave(`bot:${id}`);
             humanNamespace.emit('botStatus', id, { online: false });
         });
+
+        client.on('botStatus', (id, status) => {
+            humanNamespace.emit('botStatus', id, status)
+        })
     });
 
     server.listen(port);

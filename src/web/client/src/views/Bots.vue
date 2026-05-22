@@ -43,6 +43,7 @@ socket.on('connect', () => {
 
 socket.on('listBots', (data: { id: number, username: string }[]) => {
     bots.value = new Map(data.map(bot => [bot.id, { username: bot.username }]));
+    data.forEach(bot => socket.emit('botStatus', bot.id));
 });
 
 socket.on('botStatus', (id: number, data: Partial<BotStatus>) => {

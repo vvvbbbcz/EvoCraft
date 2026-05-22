@@ -69,6 +69,13 @@ export class Agent {
             this.killAll('Disconnected from SocketServer. Killing agent process.');
         });
 
+        this.socket.on('getStatus', () => {
+            this.socket.emit('botStatus', this.id, {
+                username: this.settings.profile.username,
+                online: true,
+            })
+        });
+
         this.socket.on('restartAgent', (agentName: string) => {
             console.log(`Restarting agent: ${agentName}`);
             this.killAll();
