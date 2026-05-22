@@ -37,7 +37,9 @@ interface BotStatus {
 
 const bots = ref<Map<number, Partial<BotStatus>>>(new Map());
 
-socket.emit('listBots');
+socket.on('connect', () => {
+    socket.emit('listBots');
+});
 
 socket.on('listBots', (data: { id: number, username: string }[]) => {
     bots.value = new Map(data.map(bot => [bot.id, { username: bot.username }]));
@@ -46,6 +48,8 @@ socket.on('listBots', (data: { id: number, username: string }[]) => {
 socket.on('botStatus', (id: number, data: Partial<BotStatus>) => {
     bots.value.set(id, { ...bots.value.get(id), ...data });
 });
+
+socket.emit('listBots');
 </script>
 
 <template>
