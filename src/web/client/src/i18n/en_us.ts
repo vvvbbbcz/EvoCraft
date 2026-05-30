@@ -24,6 +24,12 @@ export default {
                     }
                 },
                 submit: "Create"
+            },
+            status: {
+                spawned: {
+                    true: "Spawned",
+                    false: "Not Spawned",
+                }
             }
         }
     }

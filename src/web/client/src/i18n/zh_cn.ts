@@ -24,6 +24,12 @@ export default {
                     }
                 },
                 submit: "创建"
+            },
+            status: {
+                spawned: {
+                    true: "已生成",
+                    false: "未生成",
+                }
             }
         }
     }

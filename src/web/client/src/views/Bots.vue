@@ -33,6 +33,7 @@ async function submit() {
 interface BotStatus {
     username: string;
     online: boolean;
+    spawned: boolean;
 }
 
 const bots = ref<Map<number, Partial<BotStatus>>>(new Map());
@@ -60,9 +61,15 @@ socket.emit('listBots');
                 <v-col cols="12" v-for="[id, bot] in bots">
                     <v-card>
                         <template v-slot:title>
-                            <span class="m-r-1">{{ bot.username }}</span>
-                            <v-chip :color="bot.online ? 'green' : 'red'">
+                            <span class="m-r-_5">{{ bot.username }}</span>
+
+                            <v-chip class="m-r-_5" :color="bot.online ? 'green' : 'red'">
                                 {{ bot.online ? $t('appState.socket.online') : $t('appState.socket.offline') }}
+                            </v-chip>
+
+                            <v-chip :color="bot.spawned ? 'green' : 'red'">
+                                {{ bot.spawned ? $t('page.bots.status.spawned.true') :
+                                    $t('page.bots.status.spawned.false') }}
                             </v-chip>
                         </template>
 

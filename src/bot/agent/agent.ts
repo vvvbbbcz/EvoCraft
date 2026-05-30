@@ -9,6 +9,7 @@ export class Agent {
     settings: BotSettings;
     socket: Socket;
     bot?: Bot;
+    spawned = false;
     interrupt = false;
     shut_up = false;
 
@@ -46,6 +47,9 @@ export class Agent {
         this.bot.once('spawn', async () => {
             clearTimeout(spawnTimeout);
             console.log(`${name} spawned.`);
+
+            this.spawned = true;
+            this.socket.emit('botStatus', this.id, { spawned: true });
         });
     }
 
@@ -73,6 +77,7 @@ export class Agent {
             this.socket.emit('botStatus', this.id, {
                 username: this.settings.profile.username,
                 online: true,
+                spawned: this.spawned
             })
         });
 
